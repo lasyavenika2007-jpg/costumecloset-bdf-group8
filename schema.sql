@@ -20,12 +20,18 @@ CREATE TABLE IF NOT EXISTS hires (
     return_date TEXT,
     status TEXT NOT NULL DEFAULT 'active'
         CHECK (status IN ('active', 'returned')),
-
     FOREIGN KEY (actor_id) REFERENCES actors(id),
     FOREIGN KEY (costume_id) REFERENCES costumes(id)
 );
 
-CREATE UNIQUE INDEX IF NOT EXISTS
-idx_one_active_hire_per_costume
-ON hires(costume_id)
-WHERE status = 'active';
+INSERT OR IGNORE INTO actors (id, name)
+VALUES
+(1, 'Asha'),
+(2, 'Ravi');
+
+INSERT OR IGNORE INTO costumes (id, name, era)
+VALUES
+(15, 'Royal Victorian Gown', 'Victorian'),
+(16, 'Medieval Knight Armour', 'Medieval'),
+(17, 'Renaissance Dress', 'Renaissance'),
+(18, 'Royal Court Suit', 'Victorian');
